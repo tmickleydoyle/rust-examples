@@ -11,3 +11,17 @@ https://github.com/tmickleydoyle/rust-examples/pull/1
 ## Base sha
 
 6eedb26ce1b6a794a22589f10f9fce734083a414
+
+# Blog API App
+
+## Prompt
+
+Create a new Rust project for a Rust web backend project that implements a simple blog API with CRUD functionality for posts and users. The API should support endpoints for creating, retrieving, and updating blog posts. Use a popular Rust web framework like Actix Web or Axum, and handle requests and responses in JSON format. The project should be asynchronous, with proper error handling using Rust’s Result type. Data should be stored in a SQLite or Postgres database using an ORM like sqlx or diesel. Organize the code clearly and make use of Rust's type system and traits to keep the logic clean and maintainable. Include a README file in the project to explain how to use the todo commands. Create three example blog posts and a simple UI to view the posts.
+
+## Pull Request
+
+https://github.com/tmickleydoyle/rust-examples/pull/3
+
+## Base sha
+
+6eedb26ce1b6a794a22589f10f9fce734083a414
