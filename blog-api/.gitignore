@@ -1,0 +1,11 @@
+/target
+**/*.rs.bk
+Cargo.lock
+.env
+.env.*
+!.env.example
+.idea/
+.vscode/
+config/local.json
+*.pem
+*.log
