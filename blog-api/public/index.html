@@ -22,7 +22,25 @@
             padding: 20px;
             background-color: #f9f9f9;
             border-radius: 5px;
+            border: 2px solid #3498db; /* Blue border */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .post.read {
+            opacity: 0.8;
+            border-color: #95a5a6; /* Lighter border for read posts */
+        }
+        .read-toggle {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .read-toggle.read {
+            background-color: #95a5a6;
         }
         .post h2 {
             margin-top: 0;
@@ -59,6 +77,19 @@
     </div>
 
     <script>
+        // Function to store read status in localStorage
+        function saveReadStatus(postId, isRead) {
+            const readPosts = JSON.parse(localStorage.getItem('readPosts') || '{}');
+            readPosts[postId] = isRead;
+            localStorage.setItem('readPosts', JSON.stringify(readPosts));
+        }
+
+        // Function to get read status from localStorage
+        function getReadStatus(postId) {
+            const readPosts = JSON.parse(localStorage.getItem('readPosts') || '{}');
+            return readPosts[postId] === true;
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const postsContainer = document.getElementById('posts');
             
@@ -78,9 +109,11 @@
                     }
                     
                     posts.forEach(post => {
+                        const isRead = getReadStatus(post.id);
                         const postDate = new Date(post.created_at).toLocaleDateString();
                         const postEl = document.createElement('div');
-                        postEl.className = 'post';
+                        postEl.className = `post ${isRead ? 'read' : ''}`;
+                        postEl.setAttribute('data-post-id', post.id);
                         postEl.innerHTML = `
                             <h2>${post.title}</h2>
                             <div class="post-meta">
@@ -88,8 +121,31 @@
                                 <span>by Author ID: ${post.author_id}</span>
                             </div>
                             <div class="post-content">${post.content}</div>
+                            <button class="read-toggle ${isRead ? 'read' : ''}">
+                                ${isRead ? 'Mark as Unread' : 'Mark as Read'}
+                            </button>
                         `;
                         postsContainer.appendChild(postEl);
+                    });
+
+                    // Add event listeners to toggle read status
+                    document.querySelectorAll('.read-toggle').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const postEl = this.closest('.post');
+                            const postId = postEl.getAttribute('data-post-id');
+                            const isCurrentlyRead = postEl.classList.contains('read');
+                            const newReadStatus = !isCurrentlyRead;
+                            
+                            // Toggle classes
+                            postEl.classList.toggle('read');
+                            this.classList.toggle('read');
+                            
+                            // Update button text
+                            this.textContent = newReadStatus ? 'Mark as Unread' : 'Mark as Read';
+                            
+                            // Save to localStorage
+                            saveReadStatus(postId, newReadStatus);
+                        });
                     });
                 })
                 .catch(error => {

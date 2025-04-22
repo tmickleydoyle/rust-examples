@@ -25,3 +25,15 @@ https://github.com/tmickleydoyle/rust-examples/pull/3
 ## Base sha
 
 6eedb26ce1b6a794a22589f10f9fce734083a414
+
+# Update Blog Border with Read or Unread
+
+In the blog UI I want a blue border around each post, and I want the ability to mark each post as read and turn the border grey. This should happen on the client side.
+
+## Pull Request
+
+https://github.com/tmickleydoyle/rust-examples/pull/4
+
+## Base sha
+
+9ff0dcc14232106badca19d3179136836b39d2d5
